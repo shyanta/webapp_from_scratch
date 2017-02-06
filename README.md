@@ -1,1 +1,2 @@
-Here you will find the files for 'Webapp from scratch'
+#Webapp from scratch
+Here you will find all the assignments that I made for 'Webapp from scratch'

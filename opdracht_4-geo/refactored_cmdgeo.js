@@ -30,7 +30,7 @@
     
     // Event functies - bron: http://www.nczonline.net/blog/2010/03/09/custom-events-in-javascript/ Copyright (c) 2010 Nicholas C. Zakas. All rights reserved. MIT License
     // Gebruik: ET.addListener('foo', handleEvent); ET.fire('event_name'); ET.removeListener('foo', handleEvent);
-    var eventTarget = (function(){
+    var EventTarget = (function(){
         var constructorMaker = this._listeners={},
             addListenerMethod = function(a,c){
                 "undefined"==typeof this._listeners[a]&&(this._listeners[a]=[]);
@@ -60,7 +60,7 @@
     
     var ET = new EventTarget();
         
-    var getLocation = (function(){
+    var GetLocation = (function(){
         var init = function init() {
             DB.debugMessage("Controleer of GPS beschikbaar is...");
             ET.addListener(myVariables.gps_available, GT.startInterval);
@@ -124,9 +124,9 @@
         }
     })();
     
-    var GT = new getLocation();
+    var GT = new GetLocation();
     
-    var makeMap = (function(){
+    var MakeMap = (function(){
         var generateMap = function generate_map(myOptions, canvasId){
         // TODO: Kan ik hier asynchroon nog de google maps api aanroepen? dit scheelt calls
             DB.debugMessage("Genereer een Google Maps kaart en toon deze in #"+canvasId)
@@ -203,9 +203,9 @@
         }
     })();
     
-    var MM = new makeMap();
+    var MM = new MakeMap();
     
-    var debugging = (function(){
+    var Debugging = (function(){
         var geoErrorHandler = function _geo_error_handler(code, message) {
             DB.debugMessage('geo.js error '+code+': '+message);
         },
@@ -224,5 +224,5 @@
         }
     })();
     
-    var DB = new debugging();
+    var DB = new Debugging();
 })();

@@ -13,7 +13,7 @@
     
     var app = {
         init: function init(){
-            myVariables.guacemole.style.display = 'none';
+            myVariables.guacemole.setAttribute('hidden', true);
             
             routes.init();
         }
@@ -31,13 +31,13 @@
     
     var sections = {
         toggle: function toggle(route){
-            if (route == '#start'){
-                myVariables.landingPage.style.display = 'block';
-                myVariables.guacemole.style.display = 'none';
-            } else if (route == '#guacemole'){
-                myVariables.guacemole.style.display = 'block';
-                myVariables.landingPage.style.display = 'none';
-            }
+            if (route == '#guacemole'){
+                myVariables.guacemole.removeAttribute('hidden');
+                myVariables.landingPage.setAttribute('hidden', true);
+            } else if (route == '#start'){
+                myVariables.landingPage.removeAttribute('hidden');
+                myVariables.guacemole.setAttribute('hidden', true);
+            } 
         }
     };
     

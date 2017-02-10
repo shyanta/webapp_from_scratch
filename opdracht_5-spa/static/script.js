@@ -6,15 +6,15 @@
     //Declare variables
     var myVariables = {
         landingPage : document.getElementById('start'),
-        bestPractices : document.getElementById('bestpractices'),
+        guacemole : document.getElementById('guacemole'),
         landingPageButton : document.querySelector('a[href="#start"]'),
-        bestPracticesButton : document.querySelector('a[href="#bestpractices"]')
+        guacemoleButton : document.querySelector('a[href="#guacemole"]')
     };
     
     var app = {
         init: function init(){
             myVariables.landingPage.style.display = 'block';
-            myVariables.bestPractices.style.display = 'none';
+            myVariables.guacemole.style.display = 'none';
             
             routes.init();
         }
@@ -34,9 +34,9 @@
         toggle: function toggle(route){
             if (route == '#start'){
                 myVariables.landingPage.style.display = 'block';
-                myVariables.bestPractices.style.display = 'none';
-            } else if (route == '#bestpractices'){
-                myVariables.bestPractices.style.display = 'block';
+                myVariables.guacemole.style.display = 'none';
+            } else if (route == '#guacemole'){
+                myVariables.guacemole.style.display = 'block';
                 myVariables.landingPage.style.display = 'none';
             }
         }

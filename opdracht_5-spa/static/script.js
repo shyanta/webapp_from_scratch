@@ -13,8 +13,8 @@
     
     var app = {
         init: function init(){
-            myVariables.landingPage.style.display = 'block';
-            myVariables.guacemole.style.display = 'none';
+            //myVariables.landingPage.style.display = 'block';
+            //myVariables.guacemole.style.display = 'none';
             
             routes.init();
         }

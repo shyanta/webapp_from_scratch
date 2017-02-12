@@ -10,6 +10,7 @@
  *   Copyleft 2012, all wrongs reversed.
  */
 (function () {
+    //Placed all the variables in one variable in an object.
     var myVariables = {
         sandbox: "SANDBOX"
         , linear: "LINEAIR"
@@ -17,6 +18,7 @@
         , gps_unavailable: "GPS_UNAVAILABLE"
         , position_updated: "POSITION_UPDATED"
         , refresh_rate: 1000
+        //Divided one lang variable into multiple properties to make it more organised
         , currentPosition: currentPositionMarker
         , currentPositionMarker : customDebugging
         , customDebugging : debugId
@@ -30,7 +32,10 @@
     
     // Event functies - bron: http://www.nczonline.net/blog/2010/03/09/custom-events-in-javascript/ Copyright (c) 2010 Nicholas C. Zakas. All rights reserved. MIT License
     // Gebruik: ET.addListener('foo', handleEvent); ET.fire('event_name'); ET.removeListener('foo', handleEvent);
+    
+    //Placed the functions I thought belonged together into one variable
     var EventTarget = (function(){
+        //Placed all the functions in properties which I later use in the return
         var constructorMaker = this._listeners={},
             addListenerMethod = function(a,c){
                 "undefined"==typeof this._listeners[a]&&(this._listeners[a]=[]);
@@ -47,7 +52,9 @@
                     b.splice(d,1);
                     break
                 }
-            }
+            } 
+        
+        //To make it more organised, made a return with all the properties
             return { 
                 prototype : {
                     constructor : constructorMaker,
@@ -58,8 +65,10 @@
             }
         })();
     
+    //Made a new object
     var ET = new EventTarget();
-        
+    
+    //I use the same structure in the other variables in this document
     var GetLocation = (function(){
         var init = function init() {
             DB.debugMessage("Controleer of GPS beschikbaar is...");

@@ -13,6 +13,7 @@
     
     var app = {
         init: function init(){
+            location.hash = '#start';
             myVariables.guacemole.setAttribute('hidden', true);
             
             routes.init();
@@ -23,8 +24,8 @@
         init: function init(){  
             //window check if hash has changed, then put the hash in var x and execute sections.toggle(x). Source: Elton Goncalvez Gomez.
             window.addEventListener('hashchange', function(){
-                var x = location.hash;
-                sections.toggle(x);
+                var urlHash = location.hash;
+                sections.toggle(urlHash);
             });
         }
     };

@@ -1,11 +1,24 @@
 @font-face {
-    font-family: 'Amatraca Grotesque';
-    src: url('amatraca-grotesque-normal.ttf');
-    src: local('Amatraca');
+    font-family: Amatraca Grotesque;
+    src: url(amatraca-grotesque-normal.ttf);
+}
+
+@font-face {
+    font-family: August Regular;
+    src: url(august_sans/AugustSans-55Regular.ttf);
+}
+
+@font-face {
+    font-family: August Light;
+    src: url(august_sans/AugustSans-45Light.ttf);
+    font-weight: lighter;
 }
 
 * {
-    font-family: sans-serif;
+    box-sizing: border-box;
+    color: white;
+    font-family: August Light, sans-serif;
+    font-weight: lighter;
     padding: 0;
     margin: 0;
 }
@@ -14,19 +27,46 @@ body {
     background-color: #52B2CF;
 }
 
+h1, h2 {
+    font-family: August Regular, sans-serif;
+}
+
 h1 {
-    font-family: 'Amatraca', sans-serif;
+    text-transform: uppercase;
+}
+
+h2 {
+    margin-top: 0.5rem;
+}
+
+#start section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#start section section, #start section section p {
+    width: 9rem;
+    height: 9rem;
+}
+
+#guacemole ul {
+    padding-left: 1em;
+}
+
+ul li, p {
+    color: white;
+    color: rgba(255, 255, 255, 0.7);
+}
+nav a, nav a:visited {
+    font-family: Amatraca Grotesque, sans-serif;
+    text-decoration: none;
 }
 
 nav ul {
     display: flex;
     flex-direction: row;
     list-style: none;
-}
-
-nav a, nav a:visited, h1 {
-    color: white;
-    text-decoration: none;
 }
 
 nav li {
@@ -46,4 +86,69 @@ nav li:first-child {
 
 #start, #guacemole {
     margin: 1em;
+}
+
+img {
+    width: 100%;
+}
+
+#start > section > section:nth-of-type(1) {
+    background: url(guacemole.jpg) -50px 0;
+    background-size: 200%;
+}
+
+#start > section > section:nth-of-type(2) {
+    background: url(taco.jpg) -50px 0;
+    background-size: 200%;
+}
+#start > section > section:nth-of-type(3) {
+    background: url(guacemole.jpg) -50px 0;
+    background-size: 200%;
+}
+
+#start > section > section:nth-of-type(4) {
+    background: url(taco.jpg) -50px 0;
+    background-size: 200%;
+}
+#start > section > section:nth-of-type(5) {
+    background: url(guacemole.jpg) -50px 0;
+    background-size: 200%;
+}
+
+#start > section > section:nth-of-type(6) {
+    background: url(taco.jpg) -50px 0;
+    background-size: 200%;
+}
+
+#start section:nth-of-type(3n - 2) p {
+    background: linear-gradient(
+      rgba(212, 175, 185, 0.8), 
+      rgba(212, 175, 185, 0.8)
+    );
+}
+
+#start section:nth-of-type(3n - 1) p {
+    background: linear-gradient(
+      rgba(156, 173, 206, 0.8), 
+      rgba(156, 173, 206, 0.8)
+    );
+}
+
+#start section:nth-of-type(3n) p {
+    background: linear-gradient(
+      rgba(126, 196, 207, 0.8), 
+      rgba(126, 196, 207, 0.8)
+    );
+}
+
+#start section p {
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#start section p a {
+    display: block;
+    margin-top: calc(9em/2 - 0.5em);
+    text-decoration: none;
 }

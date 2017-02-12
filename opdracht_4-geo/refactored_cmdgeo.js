@@ -65,9 +65,6 @@
             }
         })();
     
-    //Made a new object and declared it to ET.
-    var ET = new EventTarget();
-    
     //I use the same structure in the other variables in this document
     var GetLocation = (function(){
         var init = function init() {
@@ -132,8 +129,6 @@
             setPosition : setPosition
         }
     })();
-    
-    var GT = new GetLocation();
     
     var MakeMap = (function(){
         var generateMap = function generate_map(myOptions, canvasId){
@@ -212,8 +207,6 @@
         }
     })();
     
-    var MM = new MakeMap();
-    
     var Debugging = (function(){
         var geoErrorHandler = function _geo_error_handler(code, message) {
             DB.debugMessage('geo.js error '+code+': '+message);
@@ -233,5 +226,9 @@
         }
     })();
     
+    //Make all the objects
+    var ET = new EventTarget();
+    var GT = new GetLocation();
+    var MM = new MakeMap();
     var DB = new Debugging();
 })();

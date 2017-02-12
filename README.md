@@ -5,7 +5,7 @@
 ###Pros of using JS libraries/frameworks
 
 ####1: Less code
-When there is less code there is less maintenance time(David Walsh, september 5 2007).
+Most frameworks provide function chainging. With chaining you can do more with less code. When there is less code there is less maintenance time(David Walsh, september 5 2007).
 
 ####2: Visitor usage
 The speed of visitor usage is faster. The speed of a script is the most important part(David Walsh, september 5 2007).

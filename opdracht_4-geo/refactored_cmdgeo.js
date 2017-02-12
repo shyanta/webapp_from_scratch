@@ -65,7 +65,7 @@
             }
         })();
     
-    //Made a new object
+    //Made a new object and declared it to ET
     var ET = new EventTarget();
     
     //I use the same structure in the other variables in this document

@@ -10,7 +10,7 @@
  *   Copyleft 2012, all wrongs reversed.
  */
 (function () {
-    //Placed all the variables in one variable in an object.
+    //Placed all the variables in one variable in an object..
     var myVariables = {
         sandbox: "SANDBOX"
         , linear: "LINEAIR"

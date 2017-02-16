@@ -68,6 +68,26 @@
         })()
     };
     
+    var categoryNames = [
+        Object.getOwnPropertyNames(data)[0], 
+        Object.getOwnPropertyNames(data)[1], 
+        Object.getOwnPropertyNames(data)[2], 
+        Object.getOwnPropertyNames(data)[3]
+    ];
+    
+    var directives = {
+        category : {
+            href: function(params){
+                return '#category/#' + this.value;
+            },
+            text : function(params){
+                return this.value;
+            }
+        }
+    };
+    
+    Transparency.render(selectedElements.categoryList, categoryNames, directives);
+    
 //    (function(){
 //        selectedElements.quizGenerator.hidden = true;
 //        
@@ -117,26 +137,8 @@
     var sections = {
         render: function(data, source) {
             event.preventDefault();
-            
-            var categoryNames = [
-                Object.getOwnPropertyNames(data)[0], 
-                Object.getOwnPropertyNames(data)[1], 
-                Object.getOwnPropertyNames(data)[2], 
-                Object.getOwnPropertyNames(data)[3]
-            ];
-            
-            var directives = {
-                category : {
-                    href: function(params){
-                        return '#category/#' + this.value;
-                    },
-                    text : function(params){
-                        return this.value;
-                    }
-                }
-            };
-
-            Transparency.render(selectedElements.categoryList, categoryNames, directives);
+            selectedElements.categoryList.hidden = false;
+            // render html with transparency + data
             // this.toggle()
         },
         toggle: function(route){

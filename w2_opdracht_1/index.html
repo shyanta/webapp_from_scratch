@@ -2,26 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Missy Quizzy</title>
+    <title>Quizpose</title>
 </head>
 <body>
-    <h1>My first webapplication</h1>
+    <h1>Quizpose</h1>
         <nav>
             <ul>
-                <li><a href="#start">Home</a></li>
-                <li><a href="#quiz">Quiz</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#categories">Categories</a></li>
             </ul>
         </nav>
-    <section id="start">
+    <section id="home">
         <h2>Home</h2>
+        <h3>Make your own quizes with Quizpose!</h3>
+        <h4>You don't even have to make up your own questions.</h4>
+        <aside>
+            <h2>Start right here with your quiz</h2>
+            <form>
+                <p>
+                    Title of your quiz
+                    <input type="text" name="title" />
+                    <a href="#quizgenerator">Get started</a>
+                </p>
+            </form>
+        </aside>
     </section>
-    <section id="quiz">
-        <h2>Quiz</h2> 
-        <ol>
-            
-        </ol>
+    <section id="quizgenerator">
+        <h2 class="mytitle">My title</h2>
+        <fieldset>
+            <legend>Filter</legend>
+            <input type="checkbox" name="filter" />
+        </fieldset>
+        <ul class="allquestions">
+           <li>
+              <h2 class="category1">a</h2>
+                <ul>
+                </ul>
+           </li>
+            <li>
+              <h2 class="category2">a</h2>
+                <ul>
+                </ul>
+           </li>
+           <li>
+              <h2 class="category3">a</h2>
+                <ul>
+                </ul>
+           </li>
+           <li>
+              <h2 class="category4">a</h2>
+                <ul>
+                </ul>
+           </li>
+        </ul>
+    </section>
+    <section id="categories">
+        <h2>Categories</h2> 
+        <ul id="categorylist">
+            <li><a class="category"></a></li>
+        </ul>
     </section>
     <footer>
+       <script src="./node_modules/transparency/dist/transparency.min.js"></script>
        <script src="./node_modules/aja/aja.min.js"></script>
        <script src="js/routie.js"></script>
        <script src="js/script.js"></script>

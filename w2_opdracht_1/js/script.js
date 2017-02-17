@@ -13,7 +13,8 @@
         generateQuizButton : document.querySelector('button[type="submit"]'),
         quizGenerator : document.querySelector('#quizgenerator'),
         allQuestions : document.querySelector('.allquestions'),
-        givenTitle : document.querySelector('.mytitle')
+        givenTitle : document.querySelector('.mytitle'),
+        questionPanel : document.querySelector('.questionpanel')
     };
     
     //Store data of api's in data.
@@ -42,30 +43,30 @@
                 })
                 .go();
         },
-        sports : (function(){
+        geschiedenis : function(){
             aja()
                 .method('get')
                 //API from https://opentdb.com/api_config.php
-                .url('https://opentdb.com/api.php?amount=20&category=21&difficulty=easy&type=multiple')
+                .url('https://opentdb.com/api.php?amount=20&category=23&difficulty=easy&type=multiple')
                 .type('json')
-                .on('200', function(sports){
-                    localStorage.setItem('sports', JSON.stringify(sports)); //source 1
-                    sections.render(sports, 'api');
+                .on('200', function(geschiedenis){
+                    localStorage.setItem('geschiedenis', JSON.stringify(geschiedenis)); //source 1
+                    sections.render(geschiedenis, 'api');
                 })
                 .go();
-        })(),
-        celebrities : (function(){
+        },
+        muziek : function(){
             aja()
                 .method('get')
                 //API from https://opentdb.com/api_config.php
-                .url('https://opentdb.com/api.php?amount=20&category=26&difficulty=easy&type=multiple')
+                .url('https://opentdb.com/api.php?amount=20&category=12&difficulty=easy&type=multiple')
                 .type('json')
-                .on('200', function(celebrities){
-                    localStorage.setItem('celebrities', JSON.stringify(celebrities)); //source 1
-                    sections.render(celebrities, 'api');
+                .on('200', function(muziek){
+                    localStorage.setItem('muziek', JSON.stringify(muziek)); //source 1
+                    sections.render(muziek, 'api');
                 })
                 .go();
-        })()
+        }
     };
     
     var categoryNames = [
@@ -78,7 +79,7 @@
     var directives = {
         category : {
             href: function(params){
-                return '#category/#' + this.value;
+                return '#categories/' + this.value;
             },
             text : function(params){
                 return this.value;
@@ -118,16 +119,20 @@
             
             routie({
                 'home': function() {
-                    console.log('home');
                     sections.toggle('home');
                 },
                 'categories': function(){
+                    selectedElements.categoryList.hidden = false;
+                    selectedElements.questionPanel.hidden = true;
                     sections.toggle('categories');
                 },
                 'quizgenerator': function(){
                     sections.toggle('quizgenerator');
                 },
                 'categories/:name': function(name) {
+                    console.log(data[name]);
+                    selectedElements.categoryList.hidden = true;
+                    selectedElements.questionPanel.hidden = false;
                     localStorage.getItem(name) ? sections.render(JSON.parse(localStorage.getItem(name)), 'local') : data[name]();
                 }
             });
@@ -136,11 +141,50 @@
     
     var sections = {
         render: function(data, source) {
-            event.preventDefault();
-            selectedElements.categoryList.hidden = false;
+            console.log(data);
+            var rolledUpData = data.results.map(function(val){
+                return [
+                    val.question,
+                    val.incorrect_answers[0],
+                    val.incorrect_answers[1],
+                    val.incorrect_answers[2],
+                    val.correct_answer
+                ];
+            });
+            console.log(rolledUpData);
+            var directives = {
+                question : {
+                    text: function(params){
+                        return this[0];
+                    }
+                },
+                answer1 : {
+                    text : function(params){
+                        return this[1];
+                    }
+                },
+                answer2 : {
+                    text : function(params){
+                        return this[2];
+                    }
+                },
+                answer3 : {
+                    text : function(params){
+                        return this[3];
+                    }
+                },
+                correctanswer : {
+                    text : function(params){
+                        return this[4];
+                    }
+                }
+            };
+            
+            Transparency.render(selectedElements.questionPanel, rolledUpData, directives);
             // render html with transparency + data
             // this.toggle()
-        },
+            
+        }, 
         toggle: function(route){
             //Change all the other sections to hidden, except the active tab. Source: Shyanta Vleugel
             var currentSection = document.querySelector('#' + route),
@@ -161,15 +205,3 @@
 //Sources:
 //1 : Stackoverflow. (2010). Storing Objects in HTML5 localStorage. Source:
 //http://stackoverflow.com/questions/2010892/storing-objects-in-html5-localstorage
-
-//Rubbish
-//
-    //Output all the questions
-//    (function(){
-//        for(var i=0; i < data.results.length; i++){
-//        selectedElements.categoryList.innerHTML += '<li id="question' + [i] + '"><a href="#question' + [i] + '">' + data.results[i].question + '</a></li><form><input type="radio" name="question' + [i] + '" value="' + data.results[i].incorrect_answers[0] + '" /><p>' + data.results[i].incorrect_answers[0] + '</p><input type="radio" name="question' + [i] + '" value="' + data.results[i].incorrect_answers[1] + '" /><p>' + data.results[i].incorrect_answers[1] + '</p><input type="radio" name="question' + [i] + '" value="' + data.results[i].incorrect_answers[2] + '" /><p>' + data.results[i].incorrect_answers[2] + '<input type="radio" name="question' + [i] + '" value="' + data.results[i].correct_answer + '" /><p>' + data.results[i].correct_answer + '</p></form>';
-//        }  
-//        selectedElements.answersInput = document.querySelectorAll('input[name^="question"]');
-//        selectedElements.answersParagraph = document.querySelectorAll('#categories p');
-//        
-//    })();

@@ -6,6 +6,7 @@
     
     var allData = [];
     
+    // Nice way of creating queryselectors. Makes is possible to use them everywhere without having to repeat yourself
     //Select elements in DOM and store them in selectedElements
     var selectedElements = {
         landingPage : document.getElementById('start'),
@@ -89,7 +90,7 @@
         }
     };
     
-    
+    //I would place this in the top of your file, because this is where you start to run your whole script.
     //Settings for starting app.
     var app = {
         init: function(){
@@ -122,6 +123,7 @@
                     data.history();
                     sections.renderAllQuestions();
                 },
+                //You can make a section.detailpage (or something) to write this code in here so you only have to redirect to a method here
                 'categories/:name': function(name) {
                     selectedElements.categoryList.hidden = true;
                     selectedElements.questionPanel.hidden = false;
@@ -150,7 +152,7 @@
             var directives = {
                 question : {
                     text: function(params){
-                        return this[0];
+                        return this[0]; // You can call this with a 'this.question' as well. This will make it more precise.
                     }
                 },
                 answer1 : {
@@ -179,7 +181,7 @@
         },
         renderCategories: function(){
             var categoryNames = [
-                Object.getOwnPropertyNames(data)[0], 
+                Object.getOwnPropertyNames(data)[0], //Is it possible to do this with a forEach() or map() or loop
                 Object.getOwnPropertyNames(data)[1], 
                 Object.getOwnPropertyNames(data)[2], 
                 Object.getOwnPropertyNames(data)[3]
@@ -198,7 +200,7 @@
 
             Transparency.render(selectedElements.categoryList, categoryNames, directives);
         },
-        render: function(data, source) {
+        render: function(data, source) { //You're repeating yourself a lot in this function compared to the renderAllQuestions. Create and call functions for this.
             var rolledUpData = data.results.map(function(val){
                 return [
                     val.question,

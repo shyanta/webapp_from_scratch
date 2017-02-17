@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <meta name="viewport" content="width=device-width" />
     <meta charset="UTF-8">
     <title>Quizpose</title>
 </head>
+
 <body>
     <h1>Quizpose</h1>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#categories">Categories</a></li>
-            </ul>
-        </nav>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#categories">Categories</a></li>
+        </ul>
+    </nav>
     <section id="home">
         <h2>Home</h2>
         <h3>Make your own quizes with Quizpose!</h3>
@@ -19,50 +22,49 @@
         <aside>
             <h2>Start right here with your quiz</h2>
             <form>
-                <p>
-                    Title of your quiz
-                    <input type="text" name="title" />
-                    <a href="#quizgenerator">Get started</a>
-                </p>
+                <p> Title of your quiz
+                    <input type="text" name="title" /> <a href="#quizgenerator">Get started</a> </p>
             </form>
         </aside>
     </section>
     <section id="quizgenerator">
         <h2 class="mytitle">My title</h2>
+        
+        <form class="filteroptions">
         <fieldset>
             <legend>Filter</legend>
-            <input type="checkbox" name="filter" />
+            <input type="checkbox" name="filtercategorie" id="tv" value="tv" />
+            <label for="tv">TV</label>
+            <input type="checkbox" name="filtercategorie" id="sciencenature" value="sciencenature" />
+            <label for="sciencenature">Science & Nature</label>
+            <input type="checkbox" name="filtercategorie" id="history" value="history" />
+            <label for="history">History</label>
+            <input type="checkbox" name="filtercategorie" id="music" value="music" />
+            <label for="music">Music</label>
         </fieldset>
-        <ul class="allquestions">
-           <li>
-              <h2 class="category1">a</h2>
-                <ul>
+        </form>
+        <section class="allquestions">
+            <h3>All questions</h3>
+            <section class="questionsection">
+                <h4 class="question">Question comes here</h4>
+                <ul class="answers">
+                    <li class="answer1"></li>
+                    <li class="answer2"></li>
+                    <li class="answer3"></li>
+                    <li class="correctanswer"></li>
                 </ul>
-           </li>
-            <li>
-              <h2 class="category2">a</h2>
-                <ul>
-                </ul>
-           </li>
-           <li>
-              <h2 class="category3">a</h2>
-                <ul>
-                </ul>
-           </li>
-           <li>
-              <h2 class="category4">a</h2>
-                <ul>
-                </ul>
-           </li>
-        </ul>
+            </section>
+        </section>
     </section>
     <section id="categories">
-        <h2>Categories</h2> 
+        <h2>Categories</h2>
         <ul id="categorylist">
-            <li><a class="category"></a></li>
+            <li>
+                <a class="category"></a>
+            </li>
         </ul>
         <section class="questionpanel">
-            <h3 class="question">Question comes here</h3>
+            <h4 class="question">Question comes here</h4>
             <ul class="answers">
                 <li class="answer1"></li>
                 <li class="answer2"></li>
@@ -72,10 +74,11 @@
         </section>
     </section>
     <footer>
-       <script src="./node_modules/transparency/dist/transparency.min.js"></script>
-       <script src="./node_modules/aja/aja.min.js"></script>
-       <script src="js/routie.js"></script>
-       <script src="js/script.js"></script>
+        <script src="./node_modules/transparency/dist/transparency.min.js"></script>
+        <script src="./node_modules/aja/aja.min.js"></script>
+        <script src="js/routie.js"></script>
+        <script src="js/script.js"></script>
     </footer>
 </body>
+
 </html>

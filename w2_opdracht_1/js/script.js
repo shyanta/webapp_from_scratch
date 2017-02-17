@@ -4,6 +4,8 @@
     //Execute code in strict mode
     'use strict';
     
+    var allData = [];
+    
     //Select elements in DOM and store them in selectedElements
     var selectedElements = {
         landingPage : document.getElementById('start'),
@@ -14,7 +16,9 @@
         quizGenerator : document.querySelector('#quizgenerator'),
         allQuestions : document.querySelector('.allquestions'),
         givenTitle : document.querySelector('.mytitle'),
-        questionPanel : document.querySelector('.questionpanel')
+        questionPanel : document.querySelector('.questionpanel'),
+        questionSection : document.querySelector('.questionsection'),
+        filterOptions : document.querySelector('.filteroptions')
     };
     
     //Store data of api's in data.
@@ -28,6 +32,10 @@
                 .on('200', function(tv){ //If the API is succesful, store the data in tv
                     localStorage.setItem('tv', JSON.stringify(tv)); //Source 1, put the data into local storage
                     sections.render(tv, 'api'); //Execute function sections.render with the parameter that has the data from the api and a string to tell where the data is being loaded from
+                    //sections.renderAllQuestions(tv);
+                tv.results.map(function(val){
+                    allData.push(val);
+                });
                 })
                 .go(); 
         },
@@ -40,71 +48,48 @@
                 .on('200', function(scienceNature){
                     localStorage.setItem('scienceNature', JSON.stringify(scienceNature)); //source 1
                     sections.render(scienceNature, 'api');
+                    //sections.renderAllQuestions(scienceNature);
+                scienceNature.results.map(function(val){
+                    allData.push(val);
+                });
                 })
                 .go();
         },
-        geschiedenis : function(){
+        history : function(){
             aja()
                 .method('get')
                 //API from https://opentdb.com/api_config.php
                 .url('https://opentdb.com/api.php?amount=20&category=23&difficulty=easy&type=multiple')
                 .type('json')
-                .on('200', function(geschiedenis){
-                    localStorage.setItem('geschiedenis', JSON.stringify(geschiedenis)); //source 1
-                    sections.render(geschiedenis, 'api');
+                .on('200', function(history){
+                    localStorage.setItem('history', JSON.stringify(history)); //source 1
+                    sections.render(history, 'api');
+                    //sections.renderAllQuestions(history);
+                history.results.map(function(val){
+                    allData.push(val);
+                });
                 })
                 .go();
         },
-        muziek : function(){
+        music : function(){
             aja()
                 .method('get')
                 //API from https://opentdb.com/api_config.php
                 .url('https://opentdb.com/api.php?amount=20&category=12&difficulty=easy&type=multiple')
                 .type('json')
-                .on('200', function(muziek){
-                    localStorage.setItem('muziek', JSON.stringify(muziek)); //source 1
-                    sections.render(muziek, 'api');
+                .on('200', function(music){
+                    localStorage.setItem('music', JSON.stringify(music)); //source 1
+                    sections.render(music, 'api');
+                    //sections.renderAllQuestions(music);
+                music.results.map(function(val){
+                    allData.push(val);
+                });
                 })
                 .go();
         }
     };
     
-    var categoryNames = [
-        Object.getOwnPropertyNames(data)[0], 
-        Object.getOwnPropertyNames(data)[1], 
-        Object.getOwnPropertyNames(data)[2], 
-        Object.getOwnPropertyNames(data)[3]
-    ];
     
-    var directives = {
-        category : {
-            href: function(params){
-                return '#categories/' + this.value;
-            },
-            text : function(params){
-                return this.value;
-            }
-        }
-    };
-    
-    Transparency.render(selectedElements.categoryList, categoryNames, directives);
-    
-//    (function(){
-//        selectedElements.quizGenerator.hidden = true;
-//        
-//        selectedElements.generateQuizButton.addEventListener('click', function(event){
-//            event.preventDefault();
-//            
-//            var titleQuiz = {
-//                mytitle : selectedElements.titleInput.value
-//            };
-//            Transparency.render(selectedElements.quizGenerator, titleQuiz);
-//            Transparency.render(selectedElements.allQuestions, categoryNames);
-//            selectedElements.quizGenerator.hidden = false;
-//            selectedElements.landingPage.hidden = true;
-//        });
-//    })();
-//    
     //Settings for starting app.
     var app = {
         init: function(){
@@ -124,24 +109,96 @@
                 'categories': function(){
                     selectedElements.categoryList.hidden = false;
                     selectedElements.questionPanel.hidden = true;
+                    selectedElements.filterOptions.hidden = true;
+                    sections.renderCategories();
                     sections.toggle('categories');
                 },
                 'quizgenerator': function(){
                     sections.toggle('quizgenerator');
+                    selectedElements.allQuestions.hidden = false;
+                    data.tv();
+                    data.music();
+                    data.scienceNature();
+                    data.history();
+                    sections.renderAllQuestions();
                 },
                 'categories/:name': function(name) {
-                    console.log(data[name]);
                     selectedElements.categoryList.hidden = true;
                     selectedElements.questionPanel.hidden = false;
+                    selectedElements.filterOptions.hidden = false;
                     localStorage.getItem(name) ? sections.render(JSON.parse(localStorage.getItem(name)), 'local') : data[name]();
                 }
             });
         }
     };
-    
     var sections = {
+        renderAllQuestions: function(){
+            console.log(allData);
+            
+            selectedElements.questionSection.hidden = false;
+            
+            var rolledUpData = allData.results.map(function(val){
+                return [
+                    val.question,
+                    val.incorrect_answers[0],
+                    val.incorrect_answers[1],
+                    val.incorrect_answers[2],
+                    val.correct_answer
+                ];
+            });
+
+            var directives = {
+                question : {
+                    text: function(params){
+                        return this[0];
+                    }
+                },
+                answer1 : {
+                    text : function(params){
+                        return this[1];
+                    }
+                },
+                answer2 : {
+                    text : function(params){
+                        return this[2];
+                    }
+                },
+                answer3 : {
+                    text : function(params){
+                        return this[3];
+                    }
+                },
+                correctanswer : {
+                    text : function(params){
+                        return this[4];
+                    }
+                }
+            };
+            
+            Transparency.render(selectedElements.questionSection, rolledUpData, directives);
+        },
+        renderCategories: function(){
+            var categoryNames = [
+                Object.getOwnPropertyNames(data)[0], 
+                Object.getOwnPropertyNames(data)[1], 
+                Object.getOwnPropertyNames(data)[2], 
+                Object.getOwnPropertyNames(data)[3]
+            ];
+
+            var directives = {
+                category : {
+                    href: function(params){
+                        return '#categories/' + this.value;
+                    },
+                    text : function(params){
+                        return this.value;
+                    }
+                }
+            };
+
+            Transparency.render(selectedElements.categoryList, categoryNames, directives);
+        },
         render: function(data, source) {
-            console.log(data);
             var rolledUpData = data.results.map(function(val){
                 return [
                     val.question,
@@ -151,7 +208,7 @@
                     val.correct_answer
                 ];
             });
-            console.log(rolledUpData);
+
             var directives = {
                 question : {
                     text: function(params){
@@ -181,8 +238,6 @@
             };
             
             Transparency.render(selectedElements.questionPanel, rolledUpData, directives);
-            // render html with transparency + data
-            // this.toggle()
             
         }, 
         toggle: function(route){
